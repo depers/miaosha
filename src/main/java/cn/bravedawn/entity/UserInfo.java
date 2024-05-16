@@ -3,27 +3,35 @@ package cn.bravedawn.entity;
 import java.io.Serializable;
 
 public class UserInfo implements Serializable {
+    /**
+     * 主键
+     */
     private Integer id;
 
+    /**
+     * 姓名
+     */
     private String name;
 
     /**
-     * //1代表男性，2代表女性
+     * 性别，1代表男性，2代表女性
      */
-    private Byte gender;
-
-    private Integer age;
-
-    private String telphone;
-
-    private String encrptPassword;
+    private Integer gender;
 
     /**
-     * //byphone,bywechat,byalipay
+     * 年龄
      */
-    private String registerMode;
+    private Integer age;
 
-    private String thirdPartyId;
+    /**
+     * 手机号
+     */
+    private String phone;
+
+    /**
+     * 密码
+     */
+    private String password;
 
     private static final long serialVersionUID = 1L;
 
@@ -43,11 +51,11 @@ public class UserInfo implements Serializable {
         this.name = name;
     }
 
-    public Byte getGender() {
+    public Integer getGender() {
         return gender;
     }
 
-    public void setGender(Byte gender) {
+    public void setGender(Integer gender) {
         this.gender = gender;
     }
 
@@ -59,36 +67,20 @@ public class UserInfo implements Serializable {
         this.age = age;
     }
 
-    public String getTelphone() {
-        return telphone;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setTelphone(String telphone) {
-        this.telphone = telphone;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getEncrptPassword() {
-        return encrptPassword;
+    public String getPassword() {
+        return password;
     }
 
-    public void setEncrptPassword(String encrptPassword) {
-        this.encrptPassword = encrptPassword;
-    }
-
-    public String getRegisterMode() {
-        return registerMode;
-    }
-
-    public void setRegisterMode(String registerMode) {
-        this.registerMode = registerMode;
-    }
-
-    public String getThirdPartyId() {
-        return thirdPartyId;
-    }
-
-    public void setThirdPartyId(String thirdPartyId) {
-        this.thirdPartyId = thirdPartyId;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
@@ -101,10 +93,8 @@ public class UserInfo implements Serializable {
         sb.append(", name=").append(name);
         sb.append(", gender=").append(gender);
         sb.append(", age=").append(age);
-        sb.append(", telphone=").append(telphone);
-        sb.append(", encrptPassword=").append(encrptPassword);
-        sb.append(", registerMode=").append(registerMode);
-        sb.append(", thirdPartyId=").append(thirdPartyId);
+        sb.append(", phone=").append(phone);
+        sb.append(", password=").append(password);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

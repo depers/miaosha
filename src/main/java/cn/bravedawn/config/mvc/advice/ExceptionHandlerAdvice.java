@@ -1,6 +1,6 @@
 package cn.bravedawn.config.mvc.advice;
 
-import cn.bravedawn.config.mvc.bean.Vo;
+import cn.bravedawn.model.Vo;
 import cn.bravedawn.exception.BusinessException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;

@@ -3,18 +3,39 @@ package cn.bravedawn.entity;
 import java.io.Serializable;
 
 public class Item implements Serializable {
+    /**
+     * 主键
+     */
     private Integer id;
 
+    /**
+     * 商品名称
+     */
     private String title;
 
+    /**
+     * 商品金额
+     */
     private Double price;
 
+    /**
+     * 商品描述
+     */
     private String description;
 
-    private Integer sales;
+    /**
+     * 商品销量
+     */
+    private Integer sale;
 
+    /**
+     * 商品主图
+     */
     private String imgUrl;
 
+    /**
+     * 库存
+     */
     private Integer stock;
 
     private static final long serialVersionUID = 1L;
@@ -51,12 +72,12 @@ public class Item implements Serializable {
         this.description = description;
     }
 
-    public Integer getSales() {
-        return sales;
+    public Integer getSale() {
+        return sale;
     }
 
-    public void setSales(Integer sales) {
-        this.sales = sales;
+    public void setSale(Integer sale) {
+        this.sale = sale;
     }
 
     public String getImgUrl() {
@@ -85,7 +106,7 @@ public class Item implements Serializable {
         sb.append(", title=").append(title);
         sb.append(", price=").append(price);
         sb.append(", description=").append(description);
-        sb.append(", sales=").append(sales);
+        sb.append(", sale=").append(sale);
         sb.append(", imgUrl=").append(imgUrl);
         sb.append(", stock=").append(stock);
         sb.append(", serialVersionUID=").append(serialVersionUID);

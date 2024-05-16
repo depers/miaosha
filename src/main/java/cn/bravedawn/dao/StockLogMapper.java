@@ -3,13 +3,13 @@ package cn.bravedawn.dao;
 import cn.bravedawn.entity.StockLog;
 
 public interface StockLogMapper {
-    int deleteByPrimaryKey(String stockLogId);
+    int deleteByPrimaryKey(Integer id);
 
     int insert(StockLog record);
 
     int insertSelective(StockLog record);
 
-    StockLog selectByPrimaryKey(String stockLogId);
+    StockLog selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(StockLog record);
 

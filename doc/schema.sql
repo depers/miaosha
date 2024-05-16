@@ -1,13 +1,13 @@
 
 DROP TABLE IF EXISTS `item`;
 CREATE TABLE `item` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `title` varchar(64) NOT NULL DEFAULT '',
-    `price` double(10,0) NOT NULL DEFAULT '0',
-    `description` varchar(500) NOT NULL DEFAULT '',
-    `sales` int(11) NOT NULL DEFAULT '0',
-    `img_url` varchar(255) NOT NULL DEFAULT '',
-    `stock` int(11) NOT NULL DEFAULT '0',
+    `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `title` varchar(64) NOT NULL DEFAULT '' COMMENT '商品名称',
+    `price` double(10,0) NOT NULL DEFAULT '0' COMMENT '商品金额',
+    `description` varchar(500) NOT NULL DEFAULT '' COMMENT '商品描述',
+    `sale` int(11) NOT NULL DEFAULT '0' COMMENT '商品销量',
+    `img_url` varchar(255) NOT NULL DEFAULT '' COMMENT '商品主图',
+    `stock` int(11) NOT NULL DEFAULT '0' COMMENT '库存',
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 comment="商品表";
 
@@ -18,49 +18,55 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `order_info`;
 CREATE TABLE `order_info` (
-    `id` varchar(32) NOT NULL,
-    `user_id` int(11) NOT NULL DEFAULT '0',
-    `item_id` int(11) NOT NULL DEFAULT '0',
-    `item_price` double NOT NULL DEFAULT '0',
-    `amount` int(11) NOT NULL DEFAULT '0',
-    `order_price` double NOT NULL DEFAULT '0',
-    `promo_id` int(11) NOT NULL DEFAULT '0',
+    `id` varchar(32) NOT NULL COMMENT '主键',
+    `user_id` int(11) NOT NULL DEFAULT '0' COMMENT '用户id',
+    `item_id` int(11) NOT NULL DEFAULT '0' COMMENT '商品id',
+    `item_price` double NOT NULL DEFAULT '0' COMMENT '商品金额',
+    `amount` int(11) NOT NULL DEFAULT '0' COMMENT '购买数量',
+    `order_price` double NOT NULL DEFAULT '0' COMMENT '订单金额',
+    `promo_id` int(11) NOT NULL DEFAULT '0' COMMENT '活动id',
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 comment="订单表";
 
 
 DROP TABLE IF EXISTS `promo`;
 CREATE TABLE `promo` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `promo_name` varchar(255) NOT NULL DEFAULT '',
-    `start_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `item_id` int(11) NOT NULL DEFAULT '0',
-    `promo_item_price` double NOT NULL DEFAULT '0',
-    `end_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `promo_name` varchar(255) NOT NULL DEFAULT '' COMMENT '活动名称',
+    `start_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '活动开始时间',
+    `item_id` int(11) NOT NULL DEFAULT '0' COMMENT '商品id',
+    `promo_item_price` double NOT NULL DEFAULT '0' COMMENT '活动商品金',
+    `end_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '活动结束时间',
  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 comment="秒杀活动配置";
 
 
 DROP TABLE IF EXISTS `stock_log`;
 CREATE TABLE `stock_log` (
-    `stock_log_id` varchar(64) NOT NULL,
-    `item_id` int(11) NOT NULL DEFAULT '0',
-    `amount` int(11) NOT NULL DEFAULT '0',
+    `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `item_id` int(11) NOT NULL DEFAULT '0' COMMENT '主键',
+    `amount` int(11) NOT NULL DEFAULT '0' COMMENT '主键',
     `status` int(11) NOT NULL DEFAULT '0' COMMENT '//1表示初始状态，2表示下单扣减库存成功，3表示下单回滚',
-    PRIMARY KEY (`stock_log_id`)
+    PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 comment="库存日志";
 
 
 DROP TABLE IF EXISTS `user_info`;
 CREATE TABLE `user_info` (
-    `id` int(11) NOT NULL AUTO_INCREMENT,
-    `name` varchar(64) NOT NULL DEFAULT '',
-    `gender` tinyint(4) NOT NULL DEFAULT '0' COMMENT '//1代表男性，2代表女性',
-    `age` int(11) NOT NULL DEFAULT '0',
-    `telphone` varchar(255) NOT NULL DEFAULT '',
-    `encrpt_password` varchar(128) NOT NULL DEFAULT '',
-    `register_mode` varchar(255) NOT NULL DEFAULT '' COMMENT '//byphone,bywechat,byalipay',
-    `third_party_id` varchar(64) NOT NULL DEFAULT '',
+    `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+    `name` varchar(64) NOT NULL DEFAULT '' COMMENT '姓名',
+    `gender` tinyint(4) NOT NULL DEFAULT '0' COMMENT '性别，1代表男性，2代表女性',
+    `age` int(11) NOT NULL DEFAULT '0' COMMENT '年龄',
+    `phone` varchar(255) NOT NULL DEFAULT '' COMMENT '手机号',
+    `password` varchar(128) NOT NULL DEFAULT '' COMMENT '密码',
     PRIMARY KEY (`id`),
-    UNIQUE KEY `telphone_unique_index` (`telphone`)
+    UNIQUE KEY `phone_unique_index` (`phone`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 comment="用户信息";
+
+DROP TABLE IF EXISTS `sequence`;
+CREATE TABLE `sequence` (
+    `name` varchar(64) NOT NULL DEFAULT '' COMMENT '序列号名称',
+    `current_value` bigint not null default '0' comment '当前值',
+    `step` bigint not null  default '0' comment '步长'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 comment="序列号表";
+

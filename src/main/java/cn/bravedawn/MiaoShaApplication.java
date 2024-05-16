@@ -16,7 +16,6 @@ import org.springframework.context.annotation.ComponentScans;
  * 启动类
  */
 @SpringBootApplication
-@MapperScan(basePackages = "cn.bravedawn.dao")                       // 配置Mybatis扫描包的路径
 public class MiaoShaApplication {
 
     public static void main(String[] args) {

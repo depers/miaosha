@@ -1,14 +1,11 @@
 package cn.bravedawn.config;
 
-import cn.bravedawn.serializer.JodaDateTimeJsonDeserializer;
-import cn.bravedawn.serializer.JodaDateTimeJsonSerializer;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
 import com.fasterxml.jackson.databind.module.SimpleModule;
-import org.joda.time.DateTime;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -32,8 +29,6 @@ public class RedisConfig {
 
         ObjectMapper objectMapper = new ObjectMapper();
         SimpleModule simpleModule = new SimpleModule();
-        simpleModule.addSerializer(DateTime.class, new JodaDateTimeJsonSerializer());
-        simpleModule.addDeserializer(DateTime.class, new JodaDateTimeJsonDeserializer());
 
         // 指定序列化输入类型
         objectMapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance ,

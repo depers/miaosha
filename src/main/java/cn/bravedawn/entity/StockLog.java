@@ -3,10 +3,19 @@ package cn.bravedawn.entity;
 import java.io.Serializable;
 
 public class StockLog implements Serializable {
-    private String stockLogId;
+    /**
+     * 主键
+     */
+    private Integer id;
 
+    /**
+     * 主键
+     */
     private Integer itemId;
 
+    /**
+     * 主键
+     */
     private Integer amount;
 
     /**
@@ -16,12 +25,12 @@ public class StockLog implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public String getStockLogId() {
-        return stockLogId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setStockLogId(String stockLogId) {
-        this.stockLogId = stockLogId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getItemId() {
@@ -54,7 +63,7 @@ public class StockLog implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", stockLogId=").append(stockLogId);
+        sb.append(", id=").append(id);
         sb.append(", itemId=").append(itemId);
         sb.append(", amount=").append(amount);
         sb.append(", status=").append(status);

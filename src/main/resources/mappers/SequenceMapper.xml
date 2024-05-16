@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.bravedawn.dao.SequenceMapper">
+    <resultMap id="BaseResultMap" type="cn.bravedawn.entity.Sequence">
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="current_value" jdbcType="BIGINT" property="currentValue" />
+        <result column="step" jdbcType="BIGINT" property="step" />
+    </resultMap>
+
+    <sql id="base_sql">
+        name, current_value, step
+    </sql>
+
+
+    <update id="updateSelective">
+        update
+            sequence
+        <set>
+            <if test="currentValue != null">
+                current_value = #{currentValue},
+            </if>
+            <if test="step != null">
+                step = #{step},
+            </if>
+        </set>
+        where
+            name = #{name}
+    </update>
+
+
+    <select id="getSequenceByName" resultMap="BaseResultMap">
+        select
+            <include refid="base_sql"/>
+        from
+            sequence
+        where
+            name = #{name}
+    </select>
+</mapper>

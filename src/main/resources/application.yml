@@ -1,15 +1,11 @@
-server:
-    port: 8080
+
 spring:
-    datasource:
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://127.0.0.1:3306/miaosha?serverTimezone=Asia/Shanghai
-        username: root
-        password: fx1212
+    profiles:
+        active: prod
     data:
         redis:
             host: 127.0.0.1:6379
-#            password: 6379
+            password: 6379
             database: 0
             jedis:
                 pool:
@@ -18,4 +14,7 @@ spring:
                     min-idle: 0
                     max-idle: 8
 
-
+ms:
+    snowflake:
+        center-id: 1
+        work-id: 1

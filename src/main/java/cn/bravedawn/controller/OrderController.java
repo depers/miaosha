@@ -39,7 +39,7 @@ public class OrderController {
             throw new BusinessException(ExceptionEnum.PARAMETER_VALIDATION_ERROR);
         }
 
-        //获取用户的登陆信息
+        // todo 暂时先写死，获取用户的登陆信息
         UserInfo userModel = new UserInfo();
         userModel.setId(1);
         userModel.setAge(18);

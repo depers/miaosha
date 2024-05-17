@@ -6,7 +6,7 @@ public class OrderInfo implements Serializable {
     /**
      * 主键
      */
-    private String id;
+    private Long id;
 
     /**
      * 用户id
@@ -40,11 +40,11 @@ public class OrderInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

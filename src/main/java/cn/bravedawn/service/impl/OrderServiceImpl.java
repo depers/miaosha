@@ -89,7 +89,7 @@ public class OrderServiceImpl implements OrderService {
 
         // //生成交易流水号存在重复的情况，需要在方法上加同步操作
         long id = snowflakeSequenceUtil.getNextNum();
-        orderModel.setId(String.valueOf(id));
+        orderModel.setId(id);
         orderInfoMapper.insertSelective(orderModel);
 
         // //加上商品的销量

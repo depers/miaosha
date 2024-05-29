@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @author : depers
  * @program : miaosha
  * @date : Created in 2024/5/13 15:51
+ *
+ * 下单流程
  */
 
 @RestController
@@ -32,7 +34,7 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping
-    public Vo createOrder(@RequestBody @Valid OrderReqDTO reqDTO, BindingResult bindingResult, HttpServletRequest httpServletRequest) throws BusinessException {
+    public OrderInfo createOrder(@RequestBody @Valid OrderReqDTO reqDTO, BindingResult bindingResult, HttpServletRequest httpServletRequest) throws BusinessException {
 
         if(bindingResult.hasErrors()) {
             log.error("请求参数错误");
@@ -47,8 +49,6 @@ public class OrderController {
         userModel.setGender(0);
 
         // 创建订单
-        OrderInfo orderModel = orderService.createOrder(userModel, reqDTO);
-
-        return Vo.success(orderModel);
+        return orderService.createOrder(userModel, reqDTO);
     }
 }

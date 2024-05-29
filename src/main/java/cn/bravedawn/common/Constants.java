@@ -7,5 +7,14 @@ package cn.bravedawn.common;
  */
 public interface Constants {
 
+    /**
+     * 登录标志
+     */
+    String IS_LOGIN = "is_login";
+
+    /**
+     * 登录后存储用户信息的标志
+     */
+    String LOGIN_USER = "login_user";
 
 }

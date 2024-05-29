@@ -110,4 +110,14 @@
         where
             id = #{userId}
     </select>
+
+    <select id="selectOnebyUsername" resultMap="BaseResultMap">
+        select
+            name, password, age, phone, gender
+        from
+            user_info
+        where
+            phone = #{username}
+    </select>
+
 </mapper>

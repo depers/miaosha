@@ -4,7 +4,7 @@ server:
         max-connections: 8192
         threads:
             min-spare: 100
-            max: 800
+            max: 300
     port: 8080
 
 spring:

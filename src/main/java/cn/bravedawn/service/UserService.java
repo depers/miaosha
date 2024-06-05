@@ -22,7 +22,7 @@ public interface UserService {
     /**
      * 登录
      * @param reqDTO 请求参数
-     * @param response Http响应对象
+     * @param request Http请求对象
      */
     UserLoginRespDTO login(UserLoginReqDTO reqDTO, HttpServletRequest request);
 }

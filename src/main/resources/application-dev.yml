@@ -13,3 +13,20 @@ spring:
         url: jdbc:mysql://127.0.0.1:3306/miaosha?serverTimezone=Asia/Shanghai
         username: root
         password: fx1212
+
+    data:
+        redis:
+            host: 127.0.0.1
+            port: 6379
+#            password:
+            database: 0
+            jedis:
+                pool:
+                    max-active: 8
+                    max-idle: 8
+                    max-wait: 100
+                    min-idle: 4
+
+
+miaosha:
+    whiteList: /login,/register

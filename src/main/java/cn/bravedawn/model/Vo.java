@@ -17,6 +17,8 @@ public class Vo {
     private static final String SUCCESS_MSG = "请求成功";
     private static final String FAIL_CODE = "9999";
     private static final String FAIL_MSG = "请求失败";
+    private static final String UNAUTHORIZED_CODE = "10000";
+    private static final String UNAUTHORIZED_MSG = "鉴权失败";
     private String code;
     private String msg;
     private Object data;
@@ -32,6 +34,10 @@ public class Vo {
 
     public static Vo fail() {
         return Vo.builder().code(FAIL_CODE).msg(FAIL_MSG).build();
+    }
+
+    public static Vo unauthorized() {
+        return Vo.builder().code(UNAUTHORIZED_CODE).msg(UNAUTHORIZED_MSG).build();
     }
 
 

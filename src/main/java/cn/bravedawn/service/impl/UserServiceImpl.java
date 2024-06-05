@@ -1,6 +1,7 @@
 package cn.bravedawn.service.impl;
 
 import cn.bravedawn.common.Constants;
+import cn.bravedawn.common.RedisKeyEnum;
 import cn.bravedawn.dao.UserInfoMapper;
 import cn.bravedawn.entity.UserInfo;
 import cn.bravedawn.exception.BusinessException;
@@ -9,11 +10,14 @@ import cn.bravedawn.model.dto.login.UserLoginReqDTO;
 import cn.bravedawn.model.dto.UserRegisterReqDTO;
 import cn.bravedawn.model.dto.login.UserLoginRespDTO;
 import cn.bravedawn.service.UserService;
+import cn.bravedawn.util.RedisStringClient;
+import com.alibaba.druid.support.json.JSONUtils;
 import com.alibaba.druid.util.StringUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -31,6 +35,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserInfoMapper userInfoMapper;
+
+    @Autowired
+    private RedisStringClient redisStringClient;
 
 
     @Override
@@ -70,6 +77,10 @@ public class UserServiceImpl implements UserService {
         String token = UUID.randomUUID().toString().replace("-", "");
         UserLoginRespDTO respDTO = new UserLoginRespDTO();
         respDTO.setToken(token);
+
+        // 将用户信息保存到redis中
+        String key = String.format(RedisKeyEnum.LOGIN_USER_INFO.getKey(), token);
+        redisStringClient.setex(key, JSONUtils.toJSONString(userInfo), RedisKeyEnum.LOGIN_USER_INFO.getExpireTime());
         return respDTO;
     }
 }

@@ -1,6 +1,8 @@
 package cn.bravedawn.config.mvc.intercepter;
 
 import cn.bravedawn.util.IpUtil;
+import cn.bravedawn.util.StrUtil;
+import cn.hutool.json.JSONUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -8,6 +10,7 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.MDC;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -33,7 +36,7 @@ import java.util.Date;
 @Slf4j
 @Order(value = Ordered.HIGHEST_PRECEDENCE)
 @Component
-@WebFilter(filterName = "ContentCachingFilter", urlPatterns = "/*")
+@WebFilter(filterName = "ContentCachingFilter", urlPatterns = "/**")
 public class LogRecordFilter extends OncePerRequestFilter {
 
 
@@ -49,7 +52,7 @@ public class LogRecordFilter extends OncePerRequestFilter {
             requestBodyStr = mapper.writeValueAsString(req.getParameterMap());
         } else {
             byte[] requestBody = StreamUtils.copyToByteArray(req.getInputStream());
-            requestBodyStr = new String(requestBody, StandardCharsets.UTF_8).replaceAll("\r?\n", "");
+            requestBodyStr = StrUtil.plainText(new String(requestBody, StandardCharsets.UTF_8));
         }
         log.info("访问IP:{}, 开始计时:{}, URI:{}, 请求方式:{}, 请求参数:{}.",
                 IpUtil.getIpAddr(request),
@@ -58,7 +61,7 @@ public class LogRecordFilter extends OncePerRequestFilter {
                 req.getMethod(),
                 requestBodyStr);
 
-        filterChain.doFilter(request, response);
+        filterChain.doFilter(req, resp);
 
         // 请求后的日志打印
         byte[] responseBody = resp.getContentAsByteArray();

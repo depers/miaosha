@@ -15,7 +15,7 @@ public enum ExceptionEnum implements CommonError{
     USER_NOT_EXIST(2001,"用户不存在"),
     USER_LOGIN_FAIL(2002,"用户手机号或密码不正确"),
     USER_NOT_LOGIN(2003,"用户还未登陆"),
-    USER_OTP_CODE_ERROR(2004, "用户验证码错误"),
+    USER_IS_REGISTERED(2004, "该用户已注册"),
 
     //3xxx开头为交易信息错误定义
     STOCK_NOT_ENOUGH(3001,"库存不足"),

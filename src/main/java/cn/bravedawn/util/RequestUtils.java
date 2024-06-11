@@ -17,7 +17,7 @@ public class RequestUtils {
     public static HttpStatus getHttpStatus(HttpServletRequest request) {
         Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
         if (statusCode == null) {
-            return HttpStatus.INTERNAL_SERVER_ERROR;
+            return HttpStatus.OK;
         } else {
             return HttpStatus.valueOf(statusCode);
         }

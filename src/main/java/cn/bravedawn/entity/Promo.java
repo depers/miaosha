@@ -1,6 +1,7 @@
 package cn.bravedawn.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class Promo implements Serializable {
@@ -27,7 +28,7 @@ public class Promo implements Serializable {
     /**
      * 活动商品金
      */
-    private Double promoItemPrice;
+    private BigDecimal promoItemPrice;
 
     /**
      * 活动结束时间
@@ -68,11 +69,11 @@ public class Promo implements Serializable {
         this.itemId = itemId;
     }
 
-    public Double getPromoItemPrice() {
+    public BigDecimal getPromoItemPrice() {
         return promoItemPrice;
     }
 
-    public void setPromoItemPrice(Double promoItemPrice) {
+    public void setPromoItemPrice(BigDecimal promoItemPrice) {
         this.promoItemPrice = promoItemPrice;
     }
 

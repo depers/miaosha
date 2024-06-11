@@ -34,7 +34,7 @@ public class MyResponseBodyAdvice implements ResponseBodyAdvice<Object> {
 
 
     @Override
-    // 用于确定当前的advice 是否适用于当前的请求
+    // 是否继续执行beforeBodyWrite方法
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
         return true;
     }
@@ -43,10 +43,6 @@ public class MyResponseBodyAdvice implements ResponseBodyAdvice<Object> {
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
         HttpStatus status = RequestUtils.getHttpStatus(servletRequest.getServletRequest());
-
-        if (status.isError()) {
-            return body;
-        }
 
         if (AbstractJackson2HttpMessageConverter.class.isAssignableFrom(selectedConverterType)) {
             return Vo.builder().code(SUCCESS_CODE).msg(SUCCESS_MSG).data(body).build();

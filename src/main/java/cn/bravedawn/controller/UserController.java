@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,13 +31,13 @@ public class UserController {
     private UserService userService;
 
 
-    @PostMapping("/register")
+    @PostMapping(value = "/register")
     public void register(@RequestBody @Valid UserRegisterReqDTO user,
                          BindingResult bindingResult,
                          HttpServletRequest request) {
         // 参数校验
         if (bindingResult.hasErrors()) {
-            log.error("请求参数错误");
+            log.error("请求参数错误, error={}", bindingResult.getAllErrors());
             throw new BusinessException(ExceptionEnum.PARAMETER_VALIDATION_ERROR);
         }
 
@@ -46,7 +47,7 @@ public class UserController {
 
 
 
-    @PostMapping("/login")
+    @PostMapping(value = "/login")
     public UserLoginRespDTO login(@RequestBody @Valid UserLoginReqDTO reqDTO,
                                   BindingResult bindingResult,
                                   HttpServletRequest request) {

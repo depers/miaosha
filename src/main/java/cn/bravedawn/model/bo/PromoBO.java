@@ -1,6 +1,9 @@
 package cn.bravedawn.model.bo;
 
 
+import org.joda.time.DateTime;
+
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -23,7 +26,7 @@ public class PromoBO {
     /**
      * 活动开始时间
      */
-    private Date startDate;
+    private DateTime startDate;
 
     /**
      * 商品id
@@ -33,12 +36,12 @@ public class PromoBO {
     /**
      * 活动商品金
      */
-    private Double promoItemPrice;
+    private BigDecimal promoItemPrice;
 
     /**
      * 活动结束时间
      */
-    private Date endDate;
+    private DateTime endDate;
 
     /**
      * //秒杀活动状态 1表示还未开始，2表示进行中，3表示已结束
@@ -61,11 +64,11 @@ public class PromoBO {
         this.promoName = promoName;
     }
 
-    public Date getStartDate() {
+    public DateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(DateTime startDate) {
         this.startDate = startDate;
     }
 
@@ -77,36 +80,37 @@ public class PromoBO {
         this.itemId = itemId;
     }
 
-    public Double getPromoItemPrice() {
-        return promoItemPrice;
-    }
-
-    public void setPromoItemPrice(Double promoItemPrice) {
-        this.promoItemPrice = promoItemPrice;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
 
     public Integer getStatus() {
-        Date now = new Date();
-        if (now.before(startDate)) {
+        DateTime now = DateTime.now();
+        if (now.isBefore(startDate)) {
             return 1;
         }
 
-        if (now.after(startDate) && now.before(endDate)) {
+        if (now.isAfter(startDate) && now.isBefore(endDate)) {
             return 2;
         }
 
-        if (now.after(endDate)) {
+        if (now.isAfter(endDate)) {
             return 3;
         }
         return 1;
+    }
+
+    public BigDecimal getPromoItemPrice() {
+        return promoItemPrice;
+    }
+
+    public void setPromoItemPrice(BigDecimal promoItemPrice) {
+        this.promoItemPrice = promoItemPrice;
+    }
+
+    public DateTime getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(DateTime endDate) {
+        this.endDate = endDate;
     }
 
     public void setStatus(Integer status) {

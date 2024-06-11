@@ -14,11 +14,11 @@
         id, title, price, description, sale, img_url, stock
     </sql>
 
-    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <select id="selectByPrimaryKey" parameterType="long" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
         from item
-        where id = #{id,jdbcType=INTEGER}
+        where id = #{id}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
         delete from item

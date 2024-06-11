@@ -85,7 +85,7 @@ public class OrderServiceImpl implements OrderService {
         orderModel.setAmount(amount);
         orderModel.setItemPrice(itemModel.getPromo().getPromoItemPrice());
         orderModel.setPromoId(promoId);
-        orderModel.setOrderPrice(new BigDecimal(orderModel.getItemPrice()).multiply(new BigDecimal(amount)).doubleValue());
+        orderModel.setOrderPrice(orderModel.getItemPrice().multiply(new BigDecimal(amount)));
 
         // //生成交易流水号存在重复的情况，需要在方法上加同步操作
         long id = snowflakeSequenceUtil.getNextNum();

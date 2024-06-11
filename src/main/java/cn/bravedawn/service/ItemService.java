@@ -23,7 +23,7 @@ public interface ItemService {
      * @param itemId
      * @return
      */
-    ItemBO getItemById(Integer itemId);
+    ItemBO getItemById(long itemId);
 
     /**
      * 增加销量
@@ -31,4 +31,11 @@ public interface ItemService {
      * @param amount
      */
     void increaseSales(Integer itemId, Integer amount);
+
+    /**
+     * 查询商品
+     * @param id 商品id
+     * @return
+     */
+    ItemBO getItem(String id);
 }

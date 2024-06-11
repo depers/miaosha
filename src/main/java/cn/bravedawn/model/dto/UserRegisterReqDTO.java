@@ -19,11 +19,7 @@ public class UserRegisterReqDTO {
      */
     @NotBlank
     private String telPhone;
-    /**
-     * 验证码
-     */
-    @NotBlank
-    private String otpCode;
+
     /**
      * 姓名
      */

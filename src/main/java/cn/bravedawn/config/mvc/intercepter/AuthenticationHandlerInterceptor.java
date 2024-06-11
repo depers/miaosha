@@ -2,21 +2,19 @@ package cn.bravedawn.config.mvc.intercepter;
 
 import cn.bravedawn.common.RedisKeyEnum;
 import cn.bravedawn.config.AppProperties;
+import cn.bravedawn.entity.UserInfo;
 import cn.bravedawn.model.Vo;
 import cn.bravedawn.util.RedisStringClient;
 import cn.bravedawn.util.SpringContextUtil;
 import cn.hutool.json.JSONUtil;
-import com.alibaba.druid.support.json.JSONUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.security.servlet.AntPathRequestMatcherProvider;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.io.PrintWriter;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -43,15 +41,16 @@ public class AuthenticationHandlerInterceptor implements HandlerInterceptor {
         for (String whiteUrl : whiteList) {
             RequestMatcher requestMatcher = new AntPathRequestMatcher(whiteUrl);
             if (requestMatcher.matches(request)) {
+                log.info("白名单无需鉴权，url={}，whiteUrl={}", request.getRequestURI(), whiteUrl);
                 return true;
             }
         }
 
         // 进行token鉴权
-        RedisStringClient redisStringClient = SpringContextUtil.getBean(RedisStringClient.class);
+        RedisStringClient<UserInfo> redisStringClient = SpringContextUtil.getBean(RedisStringClient.class);
         String key = String.format(RedisKeyEnum.LOGIN_USER_INFO.getKey(), token);
-        String userInfoStr = redisStringClient.get(key);
-        if (userInfoStr == null) {
+        UserInfo userInfo = redisStringClient.get(key);
+        if (userInfo == null) {
             log.error("Redis中用户信息不存在，鉴权失败");
             response.setContentType("application/json;charset=utf-8");
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
@@ -60,6 +59,8 @@ public class AuthenticationHandlerInterceptor implements HandlerInterceptor {
             writer.println(JSONUtil.toJsonStr(vo));
             writer.flush();
             return false;
+        } else {
+            log.info("鉴权通过，url={}", request.getRequestURI());
         }
 
         return true;

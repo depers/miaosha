@@ -41,7 +41,7 @@ public class ExceptionHandlerAdvice {
                     vo.setMsg(businessException.getErrMsg());
                 } else {
                     vo.setCode(DEFAULT_ERROR_CODE);
-                    vo.setMsg(e.getMessage());
+                    vo.setMsg("系统出现未知异常");
                 }
                 out.write(objectMapper.writeValueAsBytes(vo));
                 wrapResponseHeader(response);

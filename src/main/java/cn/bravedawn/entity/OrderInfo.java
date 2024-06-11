@@ -1,6 +1,7 @@
 package cn.bravedawn.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 public class OrderInfo implements Serializable {
     /**
@@ -21,7 +22,7 @@ public class OrderInfo implements Serializable {
     /**
      * 商品金额
      */
-    private Double itemPrice;
+    private BigDecimal itemPrice;
 
     /**
      * 购买数量
@@ -31,7 +32,7 @@ public class OrderInfo implements Serializable {
     /**
      * 订单金额
      */
-    private Double orderPrice;
+    private BigDecimal orderPrice;
 
     /**
      * 活动id
@@ -64,11 +65,11 @@ public class OrderInfo implements Serializable {
         this.itemId = itemId;
     }
 
-    public Double getItemPrice() {
+    public BigDecimal getItemPrice() {
         return itemPrice;
     }
 
-    public void setItemPrice(Double itemPrice) {
+    public void setItemPrice(BigDecimal itemPrice) {
         this.itemPrice = itemPrice;
     }
 
@@ -80,11 +81,11 @@ public class OrderInfo implements Serializable {
         this.amount = amount;
     }
 
-    public Double getOrderPrice() {
+    public BigDecimal getOrderPrice() {
         return orderPrice;
     }
 
-    public void setOrderPrice(Double orderPrice) {
+    public void setOrderPrice(BigDecimal orderPrice) {
         this.orderPrice = orderPrice;
     }
 

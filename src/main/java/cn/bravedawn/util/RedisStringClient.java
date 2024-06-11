@@ -2,7 +2,7 @@ package cn.bravedawn.util;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -16,10 +16,10 @@ import java.util.concurrent.TimeUnit;
  */
 @Component
 @Slf4j
-public class RedisStringClient {
+public class RedisStringClient<T> {
 
     @Autowired
-    private StringRedisTemplate redisTemplate;
+    private RedisTemplate<String, T> redisTemplate;
 
 
     /**
@@ -29,7 +29,7 @@ public class RedisStringClient {
      * @param key
      * @return
      */
-    public String get(String key) {
+    public T get(String key) {
         try {
             return redisTemplate.opsForValue().get(key);
         } catch (Exception e) {
@@ -46,7 +46,7 @@ public class RedisStringClient {
      * @param key
      * @return
      */
-    public String set(String key, String value) {
+    public String set(String key, T value) {
         try {
             redisTemplate.opsForValue().set(key, value);
         } catch (Exception e) {
@@ -146,7 +146,7 @@ public class RedisStringClient {
      * @param key
      * @return
      */
-    public Boolean setnx(String key, String value) {
+    public Boolean setnx(String key, T value) {
         try {
             return redisTemplate.opsForValue().setIfAbsent(key, value);
         } catch (Exception e) {
@@ -162,7 +162,7 @@ public class RedisStringClient {
      * @param key
      * @return
      */
-    public void setex(String key, String value, long seconds) {
+    public void setex(String key, T value, long seconds) {
         try {
             redisTemplate.opsForValue().set(key, value, seconds, TimeUnit.SECONDS);
         } catch (Exception e) {
@@ -177,7 +177,7 @@ public class RedisStringClient {
      * @param key
      * @return
      */
-    public void setrange(String key, int offset, String value) {
+    public void setrange(String key, int offset, T value) {
         try {
             redisTemplate.opsForValue().set(key, value, offset);
         } catch (Exception e) {
@@ -193,7 +193,7 @@ public class RedisStringClient {
      * @param keys
      * @return
      */
-    public List<String> mget(List<String> keys) {
+    public List<T> mget(List<String> keys) {
         try {
             return redisTemplate.opsForValue().multiGet(keys);
         } catch (Exception e) {
@@ -209,7 +209,7 @@ public class RedisStringClient {
      * @param map
      * @return
      */
-    public void mset(Map<String, String> map) {
+    public void mset(Map<String, T> map) {
         try {
             redisTemplate.opsForValue().multiSet(map);
         } catch (Exception e) {
@@ -225,7 +225,7 @@ public class RedisStringClient {
      * @param key
      * @return
      */
-    public String getSet(String key, String value) {
+    public T getSet(String key, T value) {
         try {
             return redisTemplate.opsForValue().getAndSet(key, value);
         } catch (Exception e) {

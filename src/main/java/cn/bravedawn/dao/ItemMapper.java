@@ -11,7 +11,7 @@ public interface ItemMapper {
 
     int insertSelective(Item record);
 
-    Item selectByPrimaryKey(Integer id);
+    Item selectByPrimaryKey(long id);
 
     int updateByPrimaryKeySelective(Item record);
 

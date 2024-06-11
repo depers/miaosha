@@ -74,7 +74,7 @@ public class SqlCostInterceptor implements Interceptor {
         String sql = showSql(configuration, boundSql);
         log.info("sql位置:{}", sqlId);
         log.info("sql语句:{}", sql);
-        log.info("sql耗时:{}", costTime);
+        log.info("sql耗时:{}ms", costTime);
     }
 
     private String showSql(Configuration configuration, BoundSql boundSql) {

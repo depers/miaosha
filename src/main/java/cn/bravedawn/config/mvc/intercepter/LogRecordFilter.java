@@ -1,8 +1,8 @@
 package cn.bravedawn.config.mvc.intercepter;
 
+import cn.bravedawn.config.mvc.CachedBodyHttpServletRequest;
 import cn.bravedawn.util.IpUtil;
 import cn.bravedawn.util.StrUtil;
-import cn.hutool.json.JSONUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -10,7 +10,6 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.MDC;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -18,7 +17,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
-import org.springframework.web.util.ContentCachingRequestWrapper;
 import org.springframework.web.util.ContentCachingResponseWrapper;
 
 import java.io.IOException;
@@ -44,7 +42,7 @@ public class LogRecordFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         long startTime = System.currentTimeMillis();
-        ContentCachingRequestWrapper req = new ContentCachingRequestWrapper(request);
+        CachedBodyHttpServletRequest req = new CachedBodyHttpServletRequest(request);
         ContentCachingResponseWrapper resp = new ContentCachingResponseWrapper(response);
         String requestBodyStr = "";
         if (req.getMethod().equals(HttpMethod.GET.name())) {

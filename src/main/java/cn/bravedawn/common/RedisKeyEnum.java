@@ -7,7 +7,8 @@ package cn.bravedawn.common;
  */
 public enum RedisKeyEnum {
 
-    LOGIN_USER_INFO("miaosha:login_user_info:%s", 3600, "用户登录信息")
+    LOGIN_USER_INFO("miaosha:login_user_info:%s", 3600, "用户登录信息"),
+    ITEM_INFO("miaosha:item:%s", 300, "商品信息"),
     ;
 
     RedisKeyEnum(String key, int expireTime, String desc) {

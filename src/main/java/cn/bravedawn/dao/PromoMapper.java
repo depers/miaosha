@@ -15,5 +15,5 @@ public interface PromoMapper {
 
     int updateByPrimaryKey(Promo record);
 
-    Promo selectByItemId(Integer itemId);
+    Promo selectByItemId(long itemId);
 }

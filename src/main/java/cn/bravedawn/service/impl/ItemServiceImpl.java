@@ -7,7 +7,9 @@ import cn.bravedawn.entity.Item;
 import cn.bravedawn.entity.Promo;
 import cn.bravedawn.model.bo.ItemBO;
 import cn.bravedawn.model.bo.PromoBO;
+import cn.bravedawn.service.CacheService;
 import cn.bravedawn.service.ItemService;
+import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,7 @@ import java.util.concurrent.TimeUnit;
  */
 
 @Service
+@Slf4j
 public class ItemServiceImpl implements ItemService {
 
 
@@ -34,6 +37,9 @@ public class ItemServiceImpl implements ItemService {
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
+
+    @Autowired
+    private CacheService cacheService;
 
     @Override
     public boolean decreaseStock(Integer itemId, Integer amount) {
@@ -76,16 +82,23 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public ItemBO getItem(String id) {
+        String itemKey = String.format(RedisKeyEnum.ITEM_INFO.getKey(), id);
+        ItemBO item = null;
         // 先从本地缓存中获取
+        item = (ItemBO) cacheService.getCache(itemKey);
 
         // 从Redis中获取
-        String itemKey = String.format(RedisKeyEnum.ITEM_INFO.getKey(), id);
-        ItemBO item = (ItemBO) redisTemplate.opsForValue().get(itemKey);
         if (item == null) {
-            // 从数据库中获取
-            item = getItemById(Long.parseLong(id));
-            redisTemplate.opsForValue().set(itemKey, item);
-            redisTemplate.expire(itemKey, RedisKeyEnum.ITEM_INFO.getExpireTime(), TimeUnit.SECONDS);
+            log.info("本地缓存中没有找到，key={}", itemKey);
+            item = (ItemBO) redisTemplate.opsForValue().get(itemKey);
+            if (item == null) {
+                log.info("redis缓存中没有找到，key={}", itemKey);
+                // 从数据库中获取
+                item = getItemById(Long.parseLong(id));
+                redisTemplate.opsForValue().set(itemKey, item);
+                redisTemplate.expire(itemKey, RedisKeyEnum.ITEM_INFO.getExpireTime(), TimeUnit.SECONDS);
+            }
+            cacheService.setCache(itemKey, item);
         }
 
         return item;
